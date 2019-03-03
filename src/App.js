@@ -89,7 +89,28 @@ class App extends Component {
       this.setState({
         items: shuffle(this.state.items)
       });
+      this.setState(state => {
+        const list = state.items.map((item, j) => {
+            item.val = "?"
+            return item;
+        });
+        return {
+          list,
+        };
+      });
     }, 5000)
+  }
+  
+  presonClickShuffledItemsEnd(){
+      this.setState(state => {
+        const list = state.items.map((item, j) => {
+            item.val = "?"
+            return item;
+        });
+        return {
+          list,
+        };
+      });
   }
 
   render() {
@@ -97,7 +118,7 @@ class App extends Component {
     const {isVisibleCircle} = this.state;
     const {isVisibleShuffle} = this.state;
     const { items } = this.state;
-    
+
     return (
       <div className="App">
         <div className="App-header">
@@ -113,7 +134,7 @@ class App extends Component {
           pose={isVisibleCircle ? 'visible' : 'hidden'}> Start </Circle>
         <ul className="ul-shuffle">
           <PoseGroup pose={isVisibleShuffle ? 'visible' : 'hidden'}>
-          {items.map(item => <Item key={item.id} >{item.val}</Item>)}
+          {items.map(item => <Item key={item.id} onClick={this.onClickShuffledItem} >{item.val}</Item>)}
           </PoseGroup>
         </ul>
       </div>

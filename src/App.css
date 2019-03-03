@@ -3,7 +3,7 @@
 } */
 body {
   height: 100vh;
-  background-image: linear-gradient(-180deg, #c77591 0%, #af12a2 98%);
+  background-image: linear-gradient(-180deg, #887b7f 0%, #635161 98%);
 }
 .App {
   text-align: center;
@@ -64,8 +64,8 @@ body {
   flex-direction: row;
   display: flex;
   max-width: 500px;
-  top: 10%;
-  left: 30%;
+  top: 7%;
+  left: 33%;
   position: absolute;
 }
 
