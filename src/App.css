@@ -1,0 +1,82 @@
+/* body {
+  background: rgb(122, 95, 150)
+} */
+body {
+  height: 100vh;
+  background-image: linear-gradient(-180deg, #c77591 0%, #af12a2 98%);
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 10vmin;
+  float: left;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.boxesContainer {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+} 
+
+.box {
+  width: 10%;
+  height: 10%;
+  background: black;
+  transform-origin: 50% 50%;
+  float:right;
+  margin-left: 10%;
+} 
+
+.circle {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  border-radius: 50%;
+  background: black;
+  top:40%;
+  left:41%;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  line-height: 80px;
+  font-weight: bold;
+} 
+
+.ul-shuffle {
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  display: flex;
+  max-width: 500px;
+  top: 10%;
+  left: 30%;
+  position: absolute;
+}
+
+.ul-shuffle > li {
+  display: block;
+  border-radius: 2px;
+  background: white;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 80px;
+  font-weight: bold;
+}
