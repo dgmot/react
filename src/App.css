@@ -1,35 +1,19 @@
-/* body {
-  background: rgb(122, 95, 150)
-} */
-body {
-  height: 100vh;
-  background-image: linear-gradient(-180deg, #887b7f 0%, #635161 98%);
-}
 .App {
+  background-image: linear-gradient(-180deg, #966b77 0%, #692d62 98%);
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 10vmin;
-  float: left;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
 }
 
 .boxesContainer {
-  height: 100px;
-  width: 100px;
+  height: 10vh;
+  width: 5vw;
   position: absolute;
-  top: 45%;
-  left: 40%;
+  top: 10%;
+  left: 47.5%;
 } 
 
 .box {
@@ -39,22 +23,41 @@ body {
   transform-origin: 50% 50%;
   float:right;
   margin-left: 10%;
-} 
+}
 
-.circle {
-  width: 100px;
-  height: 100px;
-  position: absolute;
+.startBtn {
+  height: 10vh;
+  width: 6vw;
   border-radius: 50%;
   background: black;
-  top:40%;
-  left:41%;
+  position: absolute;
+  top:75%;
+  left:48%;
   cursor: pointer;
-  text-align: center;
   color: white;
-  line-height: 80px;
+  font-size: 0.8vw;
   font-weight: bold;
+  display: none;
+  align-items: center;
+  justify-content: center;
 } 
+
+.nextLevelBtn {
+  height: 10vh;
+  width: 6vw;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top:60%;
+  left:48%;
+  cursor: pointer;
+  color: black;
+  font-size: 0.9vw;
+  font-weight: bold;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
 
 .ul-shuffle {
   list-style: none;
@@ -62,21 +65,54 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
-  display: flex;
-  max-width: 500px;
-  top: 7%;
-  left: 33%;
+  display: none;
+  max-width: 26vw;
+  top: 10%;
+  left: 36%;
   position: absolute;
 }
 
 .ul-shuffle > li {
   display: block;
-  border-radius: 2px;
+  border-radius: 0.5vw;
   background: white;
-  width: 100px;
-  height: 100px;
-  margin: 10px;
+  height: 7vh;
+  width: 5vw;
+  margin: 0.5vw;
   text-align: center;
-  line-height: 80px;
+  line-height: 6vh;
   font-weight: bold;
+  color:brown;
 }
+
+.score{
+  width: 10vw;
+  height: 5vh;
+  position: absolute;
+  top: 12%;
+  left: 87%;
+  font-weight: bold;
+  font-size: 2rem;
+  display: none;
+  animation: slidein 2s;
+  color: aliceblue;
+}
+
+@keyframes slidein {
+  0% { margin-left:-20vw; }
+  100% { margin-left:0vw; }
+}
+
+.totalScore{
+  width: 12vw;
+  height: 5vh;
+  position: absolute;
+  top: 12%;
+  left: 80%;
+  font-weight: bold;
+  font-size: 2rem;
+  display: none;
+  animation: slidein 2s;
+  color: aliceblue;
+}
+
