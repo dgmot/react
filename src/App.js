@@ -44,7 +44,7 @@ const Item = posed.li({
 });
 
 const initialShuffleState = [
-  {id:1,display:"",val:""}, {id:2,display:"",val:""}, 
+  {id:1,display:"x",val:"x"}, {id:2,display:"",val:""}, 
   {id:3,display:"",val:""}, {id:4,display:"",val:""},
   {id:5,display:"",val:""}, {id:6,display:"",val:""} 
 ]
@@ -85,6 +85,11 @@ class App extends Component {
   }
 
   prepCards(btnQuerySelector){
+    // this.setState(prevState => {
+    //   return {
+    //     items: prevState.items.splice(0, prevState.items.length, initialShuffleState)
+    //   }
+    // });
     this.setState(state => {
       const list = state.items.map((item, j) => {
           if (j === state.level){
@@ -93,6 +98,7 @@ class App extends Component {
           }
           else{
             item.display = ""
+            item.val = ""
           }
           return item;
       });
@@ -100,6 +106,7 @@ class App extends Component {
         list
       };
     });
+    console.log(this.state.items)
     let speed = 600;
     setTimeout(()=> {
       this.setState(state => {
@@ -125,7 +132,6 @@ class App extends Component {
       this.shuffleInterval = setInterval(() => {
         this.setState(state => {
           const items = shuffle(state.items)
-          state.playing = true
           return{
             items
           }
@@ -135,6 +141,7 @@ class App extends Component {
 
     setTimeout(()=> {
       clearInterval(this.shuffleInterval)
+      this.setState({playing: true})
       ReactDOM.findDOMNode(this).querySelector(btnQuerySelector).style.display = "none"
     }, 7000)
   }
@@ -153,7 +160,7 @@ class App extends Component {
         level: prevState.level + 1
       }
     });
-    console.log(this.state.items)
+    // console.log(this.state.items)
     ReactDOM.findDOMNode(this).querySelector('.score').style.display = "none"
     const btnQuerySelector = '.nextLevelBtn'
     this.prepCards(btnQuerySelector);
