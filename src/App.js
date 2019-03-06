@@ -85,11 +85,6 @@ class App extends Component {
   }
 
   prepCards(btnQuerySelector){
-    // this.setState(prevState => {
-    //   return {
-    //     items: prevState.items.splice(0, prevState.items.length, initialShuffleState)
-    //   }
-    // });
     this.setState(state => {
       const list = state.items.map((item, j) => {
           if (j === state.level){
@@ -106,7 +101,7 @@ class App extends Component {
         list
       };
     });
-    console.log(this.state.items)
+    // console.log(this.state.items)
     let speed = 600;
     setTimeout(()=> {
       this.setState(state => {
