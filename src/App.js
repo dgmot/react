@@ -85,7 +85,6 @@ class App extends Component {
   }
 
   prepCards(btnQuerySelector){
-    console.log()
     this.setState(state => {
       const list = state.items.map((item, j) => {
           if (j === 0){
