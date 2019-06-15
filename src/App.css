@@ -1,53 +1,116 @@
 .App {
-  background-image: linear-gradient(-180deg, #966b77 0%, #692d62 98%);
+  background-image: linear-gradient(-180deg, #679597 0%, #574561 80%);
   text-align: center;
   align-content: center;
   align-items: center;
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 .boxesContainer {
-  height: 10vh;
-  width: 5vw;
-  position: absolute;
-  top: 10%;
-  left: 47.5%;
+  /* position: relative; */
+  /* top: 10%; */
+  display: flex; 
+  flex: 0 1 1em;
+  justify-content: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
 } 
 
 .box {
-  width: 10%;
-  height: 10%;
-  background: black;
+  width: 6px;
+  height: 6px;
+  background: white;
+  -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
-  float:right;
-  margin-left: 10%;
+  margin-left: 20px;
+}
+
+
+
+.shuffleWrapper {
+  /* position: static; */
+  /* top: 20%; */
+  display: flex;
+  justify-content: center;
+  max-height: 300px;
+  flex: 0 1 1em;
+}
+
+.ul-shuffle {
+  /* justify-content: center; */
+  /* top: 2vmax; */
+  /* left: 20vmax; */
+  /* max-width: 26vmax; */
+  /* min-width: 22vmax; */
+  /* margin-left: 44vmax; */
+  /* margin-right: 44vmax; */
+  /* position: relative; */
+  flex-wrap: wrap;
+  /* flex-direction: row; */
+  /* align-items: center; */
+  justify-content: center;
+  max-width: 500px;
+  display: flex;
+}
+
+.ul-shuffle > li {
+  display: block;
+  background: white;
+  /* height: 7vmin; */
+  /* width: 7vmin; */
+  /* margin: 0.5vmin; */
+  margin: 5px;
+  /* text-align: center; */
+  /* line-height: 6vh; */
+  line-height: 100px;
+  font-weight: bold;
+  color: red;
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.startBtnWrapper {
+  /* position: relative;
+  top: 70%;
+  display: flex; */
+  justify-content: center;
+  flex: 0 1 1em;
+  margin-top: 10%
 }
 
 .startBtn {
-  height: 10vh;
-  width: 6vw;
-  border-radius: 50%;
-  background: black;
-  position: absolute;
-  top:75%;
-  left:48%;
+  /* height: 10vh; */
+  width: 110px;
+  height: 110px;
+  margin-left: 30px;
+  /* margin-right: 44vmax; */
+  line-height: 100px;
+  /* top: 40vmax; */
+  background: aliceblue;
+  /* position: relative; */
   cursor: pointer;
-  color: white;
-  font-size: 0.8vw;
+  color: black;
+  font-size: 20px;
   font-weight: bold;
-  display: none;
-  align-items: center;
+  border-radius: 20px;
+  /* align-items: center; */
   justify-content: center;
+  flex: 0 1 1em;
+  margin-top: 10%
 } 
 
 .nextLevelBtn {
-  height: 10vh;
+  /* height: 10vh;
   width: 6vw;
   border-radius: 50%;
   background: white;
-  position: absolute;
+  position: relative;
   top:60%;
   left:48%;
   cursor: pointer;
@@ -56,43 +119,44 @@
   font-weight: bold;
   display: none;
   align-items: center;
-  justify-content: center;
-}
-
-.ul-shuffle {
-  list-style: none;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  display: none;
-  max-width: 26vw;
-  top: 10%;
-  left: 36%;
-  position: absolute;
-}
-
-.ul-shuffle > li {
-  display: block;
-  border-radius: 0.5vw;
-  background: white;
-  height: 7vh;
-  width: 5vw;
-  margin: 0.5vw;
-  text-align: center;
-  line-height: 6vh;
+  justify-content: center; */
+  width: 110px;
+  height: 110px;
+  margin-left: 30px;
+  line-height: 100px;
+  background: aliceblue;
+  cursor: pointer;
+  color: black;
+  font-size: 18px;
   font-weight: bold;
-  color:brown;
+  border-radius: 20px;
+  justify-content: center;
+  flex: 0 1 1em;
+}
+
+.restartBtn {
+  width: 110px;
+  height: 110px;
+  margin-left: 30px;
+  line-height: 100px;
+  background: aliceblue;
+  cursor: pointer;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  justify-content: center;
+  flex: 0 1 1em;
 }
 
 .score{
-  width: 10vw;
+  width: 15vw;
   height: 5vh;
   position: absolute;
-  top: 12%;
-  left: 87%;
+  top: 10%;
+  left: 80%;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.8rem;
   display: none;
   animation: slidein 2s;
   color: aliceblue;
@@ -104,15 +168,27 @@
 }
 
 .totalScore{
-  width: 12vw;
+  width: 15vw;
   height: 5vh;
   position: absolute;
-  top: 12%;
+  top: 10%;
   left: 80%;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.8rem;
   display: none;
   animation: slidein 2s;
   color: aliceblue;
+}
+
+.level{
+  width: 15vw;
+  height: 5vh;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: aliceblue;
+  opacity: 0;
 }
 

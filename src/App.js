@@ -3,6 +3,7 @@ import './App.css';
 import posed, { PoseGroup } from 'react-pose';
 import ReactDOM from "react-dom";
 import shuffle from './shuffle';
+import { stat } from 'fs';
 
 const Box = posed.div({
   hidden: { opacity: 0 },
@@ -20,6 +21,19 @@ const StartBtn = posed.div({
 });
 
 const NextLevelBtn = posed.div({
+  pressable: true,
+  hoverable: true,
+  init: { scale: 1 },
+  press: { scale: 0.6 },
+  hover: { scale: 1.2 },
+  hidden: { opacity: 0 , transition: { duration: 1000 } },
+  visible: { 
+    opacity: 0.7,
+    transition: { duration: 2000}
+  },
+});
+
+const RestartBtn = posed.div({
   pressable: true,
   hoverable: true,
   init: { scale: 1 },
@@ -62,11 +76,13 @@ class App extends Component {
       totalScore: 0,
       playing: false,
       isVisibleNextLevelBtn: false,
+      isVisibleRestartBtn: false,
       level: 1
     };
     this.onClickStartBtn = this.onClickStartBtn.bind(this)
     this.onClickShuffledItem = this.onClickShuffledItem.bind(this)
     this.onClickNextLevelBtn = this.onClickNextLevelBtn.bind(this)
+    this.onClickRestartBtn = this.onClickRestartBtn.bind(this)
   }
 
   componentDidMount() {
@@ -74,11 +90,13 @@ class App extends Component {
       this.setState({ isVisibleDots: !this.state.isVisibleDots });
     }, 500);
     // ReactDOM.findDOMNode(this).querySelector('.nextLevelBtn').style.display = "flex"
-    this.setState({isVisibleNextLevelBtn: true})
+    this.setState({isVisibleNextLevelBtn: false})
     setTimeout(()=> {
       const node = ReactDOM.findDOMNode(this);
-      node.querySelector('.boxesContainer').style.display = "none"
-      node.querySelector('.startBtn').style.display = "flex"
+      // node.querySelector('.boxesContainer').style.display = "none"
+      // node.querySelector('.boxesContainer').style.opacity = "0"
+      this.setState({isVisibleDots: false})
+      // node.querySelector('.startBtn').style.display = "flex"
       clearInterval(this.boxesInterval)
       this.setState({isVisibleStartBtn: true})
     }, 3000)
@@ -106,7 +124,7 @@ class App extends Component {
     setTimeout(()=> {
       this.setState(state => {
         if(state.level === 2){
-          speed = 170;
+          speed = 300;
           state.points = 12
         }
         else if (state.level === 3){
@@ -137,13 +155,14 @@ class App extends Component {
     setTimeout(()=> {
       clearInterval(this.shuffleInterval)
       this.setState({playing: true})
-      ReactDOM.findDOMNode(this).querySelector(btnQuerySelector).style.display = "none"
+      // ReactDOM.findDOMNode(this).querySelector(btnQuerySelector).style.display = "none"
     }, 7000)
   }
 
   onClickStartBtn(){
     this.setState({isVisibleStartBtn:false, isVisibleShuffle:true});
-    ReactDOM.findDOMNode(this).querySelector(".ul-shuffle").style.display = "flex"
+    // ReactDOM.findDOMNode(this).querySelector(".ul-shuffle").style.display = "flex"
+    ReactDOM.findDOMNode(this).querySelector('.level').style.opacity = "1"
     const btnQuerySelector = '.startBtn'
     this.prepCards(btnQuerySelector);
   }
@@ -157,6 +176,21 @@ class App extends Component {
     });
     // console.log(this.state.items)
     ReactDOM.findDOMNode(this).querySelector('.score').style.display = "none"
+    const btnQuerySelector = '.nextLevelBtn'
+    this.prepCards(btnQuerySelector);
+  }
+
+  onClickRestartBtn(){
+    this.setState(prevState => {
+      return {
+        isVisibleRestartBtn:false,
+        level: 1,
+        totalScore: 0,
+        points: 6
+      }
+    });
+    // console.log(this.state.items)
+    ReactDOM.findDOMNode(this).querySelector('.totalScore').style.display = "none"
     const btnQuerySelector = '.nextLevelBtn'
     this.prepCards(btnQuerySelector);
   }
@@ -186,12 +220,13 @@ class App extends Component {
                 ReactDOM.findDOMNode(this).querySelector('.score').style.display = "flex"
                 state.totalScore = state.totalScore + state.points
                 if(state.level < 3){
-                  ReactDOM.findDOMNode(this).querySelector('.nextLevelBtn').style.display = "flex"
+                  // ReactDOM.findDOMNode(this).querySelector('.nextLevelBtn').style.display = "flex"
                   state.isVisibleNextLevelBtn = true
                 }
                 else if(state.level === 3){
                   ReactDOM.findDOMNode(this).querySelector('.score').style.display = "none"
                   ReactDOM.findDOMNode(this).querySelector('.totalScore').style.display = "flex"
+                  state.isVisibleRestartBtn = true
                 }console.log(state.totalScore + " :" + state.points)
               }
             }
@@ -212,6 +247,7 @@ class App extends Component {
     const {items} = this.state;
     const {points} = this.state;
     const {isVisibleNextLevelBtn} = this.state;
+    const {isVisibleRestartBtn} = this.state;
     const {level} = this.state;
     const {totalScore} = this.state;
 
@@ -223,26 +259,33 @@ class App extends Component {
           <Box className="box" pose={isVisibleDots ? 'visible' : 'hidden'} />
           <Box className="box" pose={isVisibleDots ? 'visible' : 'hidden'} />
         </div>
-        <StartBtn className="startBtn" 
-          onPressEnd={this.onClickStartBtn} 
-          pose={isVisibleStartBtn ? 'visible' : 'hidden'}> Start 
-        </StartBtn>
-        <ul className="ul-shuffle">
-          <PoseGroup pose={isVisibleShuffle ? 'visible' : 'hidden'}>
-          {items.map(item => 
-            <Item key={item.id} onPressEnd={this.onClickShuffledItem.bind(this, item.id)}>
-              {item.display}
-            </Item>
-            )
-          }
-          </PoseGroup>
-        </ul>
-        {/* <div className="score">Score: {(points/(6*level) * 100).toFixed(2)}% </div> */}
-        <div className="score">Score: {points}/{6*level} </div>
+        <div className="shuffleWrapper">
+          <ul className="ul-shuffle">
+            <PoseGroup pose={isVisibleShuffle ? 'visible' : 'hidden'}>
+              {items.map(item => 
+                <Item key={item.id} onPressEnd={this.onClickShuffledItem.bind(this, item.id)}>
+                  {item.display}
+                </Item>
+              )}
+            </PoseGroup>
+          </ul>
+        </div>
+          <StartBtn className="startBtn" 
+            onPressEnd={this.onClickStartBtn} 
+            pose={isVisibleStartBtn ? 'visible' : 'hidden'}> Start
+          </StartBtn>
         <NextLevelBtn className="nextLevelBtn" 
           onPressEnd={this.onClickNextLevelBtn} 
-          pose={isVisibleNextLevelBtn ? 'visible' : 'hidden'}> Next Level 
+          pose={isVisibleNextLevelBtn ? 'visible' : 'hidden'}> Next Level
         </NextLevelBtn>
+        <RestartBtn className="restartBtn" 
+          onPressEnd={this.onClickRestartBtn} 
+          pose={isVisibleRestartBtn ? 'visible' : 'hidden'}> Restart
+        </RestartBtn>
+        <div className="level">Level: {level}
+        </div>
+        <div className="score">Score: {points}/{6*level}
+        </div>
         <div className="totalScore">Total Score: {(totalScore/36 * 100).toFixed(2)}% </div>
       </div>
     );
